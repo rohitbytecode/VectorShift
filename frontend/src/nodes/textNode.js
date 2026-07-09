@@ -1,5 +1,3 @@
-// textNode.js
-
 import { useState } from 'react';
 import { BaseNode } from './baseNode';
 
@@ -29,3 +27,5 @@ export const TextNode = ({ id, data }) => {
     </BaseNode>
     );
 }
+
+export default TextNode;
