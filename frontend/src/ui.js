@@ -10,6 +10,11 @@ import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
+import { MathNode } from './nodes/mathNode';
+import { FilterNode } from './nodes/filterNode';
+import { ApiNode } from './nodes/apiNode';
+import { TimerNode } from './nodes/timerNode';
+import { ConditionalNode } from './nodes/conditionalNode';
 
 import 'reactflow/dist/style.css';
 
@@ -20,6 +25,11 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
+  math: MathNode,
+  filter: FilterNode,
+  api: ApiNode,
+  timer: TimerNode,
+  conditional: ConditionalNode,
 };
 
 const selector = (state) => ({
