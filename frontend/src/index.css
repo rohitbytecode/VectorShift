@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #12172A;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +11,40 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #A6ADC0;
+  font-size: 11px;
+}
+
+input, select {
+  background-color: #12172A;
+  border: 1px solid #323C55;
+  border-radius: 6px;
+  color: #EDEFF5;
+  font-size: 12px;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #6C8EFF;
+}
+
+.draggable-chip {
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+.draggable-chip:hover {
+  background-color: #26314A;
+  transform: translateY(-1px);
+}
+
+.react-flow__controls-button {
+  background-color: #1C2536 !important;
+  border-color: #323C55 !important;
+  color: #fff !important;
 }
