@@ -33,12 +33,16 @@ class Pipeline(BaseModel):
 def read_root():
     return {'Ping': 'Pong'}
 
-@app.post('/pipeline/parse')
 @app.post('/pipelines/parse')
 def parse_pipeline(pipeline: Pipeline):
     num_nodes = len(pipeline.nodes)
     num_edges = len(pipeline.edges)
     is_dag = check_is_dag(pipeline.nodes, pipeline.edges)
+    
+    print("--- PARSE PIPELINE ---")
+    print("Nodes:", [n.id for n in pipeline.nodes])
+    print("Edges:", [(e.source, e.target) for e in pipeline.edges])
+    print("Calculated is_dag:", is_dag)
 
     return {
         'num_nodes': num_nodes,
@@ -47,23 +51,29 @@ def parse_pipeline(pipeline: Pipeline):
     }
 
 def check_is_dag(nodes, edges):
-    adjacency = {node.id: [] for node in nodes}
-    in_degree = {node.id: 0 for node in nodes}
+    node_ids = {node.id for node in nodes}
+    adjacency = {node_id: [] for node_id in node_ids}
 
     for edge in edges:
-        if edge.source in adjacency and edge.target in adjacency:
-            adjacency[edge.source].append(edge.target)
-            in_degree[edge.target] += 1
+        if edge.source not in node_ids or edge.target not in node_ids:
+            return False
+        adjacency[edge.source].append(edge.target)
 
-    queue = [node_id for node_id, deg in in_degree.items() if deg == 0]
-    visited_count = 0
+    visiting = set()
+    visited = set()
 
-    while queue:
-        current = queue.pop()
-        visited_count += 1
-        for neighbor in adjacency[current]:
-            in_degree[neighbor] -= 1
-            if in_degree[neighbor] == 0:
-                queue.append(neighbor)
+    def dfs(node_id):
+        if node_id in visiting:
+            return False
+        if node_id in visited:
+            return True
 
-    return visited_count == len(nodes)
+        visiting.add(node_id)
+        for neighbor in adjacency[node_id]:
+            if not dfs(neighbor):
+                return False
+        visiting.remove(node_id)
+        visited.add(node_id)
+        return True
+
+    return all(dfs(node_id) for node_id in node_ids)

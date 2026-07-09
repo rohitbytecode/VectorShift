@@ -15,7 +15,8 @@ export const MathNode = ({ id, data }) => {
       handles={[
         { id: 'a', type: 'target', position: 'Left', style: { top: `${100 / 3}%` } },
         { id: 'b', type: 'target', position: 'Left', style: { top: `${200 / 3}%` } },
-        { id: 'result', type: 'source', position: 'Right' },
+        { id: 'result', type: 'source', position: 'Right', style: { top: '50%' } },
+        { id: 'back', type: 'target', position: 'Right', style: { top: '75%' } },
       ]}
     >
       <label>

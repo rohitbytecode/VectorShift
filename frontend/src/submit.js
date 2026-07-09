@@ -13,8 +13,9 @@ export const SubmitButton = () => {
     const { nodes, edges } = useStore(selector, shallow);
 
     const handleSubmit = async () => {
+        console.log('submit payload', { nodes, edges });
         try {
-            const response = await fetch('http://127.0.0.1:8000/pipeline/parse', {
+            const response = await fetch('http://127.0.0.1:8000/pipelines/parse', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,6 +29,7 @@ export const SubmitButton = () => {
             }
 
             const data = await response.json();
+            console.log('parse response', data);
             alert(
                 `Pipeline Analytics:\n\n` +
                 `Number of Nodes: ${data.num_nodes}\n` +
